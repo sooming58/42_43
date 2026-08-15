@@ -6,7 +6,7 @@
 /*   By: sumlee <sumlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:47:18 by sumlee            #+#    #+#             */
-/*   Updated: 2026/08/16 03:44:42 by sumlee           ###   ########.fr       */
+/*   Updated: 2026/08/16 04:06:28 by sumlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ typedef struct s_square
 }t_square;
 
 // 외부 함수 선언
+int		is_printable(char c);
+int		validate_header(char *line, t_map_info *info);
 int		ft_strlen(char *str);
 void	rewind_fileoffset(int fd, int len, int has_newline);
 void	process_file(char *filename);
 char	*read_line(int fd);
-char	**free_grid(char **grid, int cnt);
-int	check_line(char *line, t_map_info *info);
 char	**free_line(char **grid, char *temp, t_map_info *info, int i);
 char	**read_map(int fd, t_map_info *info);
-int	solve_bsq(char **grid, t_map_info *info, t_square *best);
+int		solve_bsq(char **grid, t_map_info *info, t_square *best);
 
 
 void	process_map(int fd)
@@ -70,6 +70,43 @@ void	process_map(int fd)
 	}
 	fill_print(grid, &info, &best);
 	free_map(grid, &info);
+}
+
+int	validate_line(char *line, t_map_info *info, int current_row)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && line[i] != '\n')
+	{
+		if (line[i] != info->empty && line[i] != info->obstacle)
+			return (0);
+		i++;
+	}
+	if (line[i] != '\n' || i == 0)
+		return (0);
+	if (current_row == 0)
+		info->cols = i;
+	else if (info->cols != i)
+		return (0);
+	return (1);
+}
+
+char	**free_grid(char **grid, int allocated_rows)
+{
+	int	i;
+
+	if (!grid)
+		return ;
+	i = 0;
+	while (i < allocated_rows)
+	{
+		if (grid[i])
+			free(grid[i]);
+		i++;
+	}
+	free(grid);
+	return (NULL);
 }
 
 #endif

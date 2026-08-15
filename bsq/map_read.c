@@ -6,7 +6,7 @@
 /*   By: sumlee <sumlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:39:22 by sumlee            #+#    #+#             */
-/*   Updated: 2026/08/16 03:44:44 by sumlee           ###   ########.fr       */
+/*   Updated: 2026/08/16 04:06:32 by sumlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,6 @@ char	*read_line(int fd)
 		read(fd, &ch, 1);
 	line[len] = '\0';
 	return (line);
-}
-
-char	**free_grid(char **grid, int cnt)
-{
-	int	i;
-
-	i = 0;
-	while (i < cnt)
-	{
-		if (grid[i])
-			free(grid[i]);
-		i++;
-	}
-	free(grid);
-	return (NULL);
 }
 
 int	check_line(char *line, t_map_info *info)

@@ -6,7 +6,7 @@
 /*   By: sumlee <sumlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:48:41 by sumlee            #+#    #+#             */
-/*   Updated: 2026/08/16 03:55:16 by sumlee           ###   ########.fr       */
+/*   Updated: 2026/08/16 03:59:07 by sumlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_dp_row(char **grid, int *dp_row, t_map_info *info, int row)
 	}
 }
 
-int	**solve_bsq(char **grid, t_map_info *info, t_square *best)
+int	solve_bsq(char **grid, t_map_info *info, t_square *best)
 {
 	int	**dp;
 	int	i;

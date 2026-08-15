@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chjeon <jchy1216@gmail.com>                +#+  +:+       +#+        */
+/*   By: sumlee <sumlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/16 03:31:08 by chjeon            #+#    #+#             */
-/*   Updated: 2026/08/16 03:43:44 by chjeon           ###   ########.fr       */
+/*   Updated: 2026/08/16 03:59:15 by sumlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bsq_error.h"
+#include "bsq.h"
 
 int	is_printable(char c)
 {

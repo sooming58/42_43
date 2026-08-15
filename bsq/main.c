@@ -6,7 +6,7 @@
 /*   By: sumlee <sumlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 18:41:28 by sumlee            #+#    #+#             */
-/*   Updated: 2026/08/16 03:41:15 by sumlee           ###   ########.fr       */
+/*   Updated: 2026/08/16 04:02:55 by sumlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void	process_file(char *filename)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		print_map_error();
+	{
+		write(2, "map error\n", 10);
+		return ;
+	}
 	else
 	{
 		process_map(fd);
