@@ -6,7 +6,7 @@
 /*   By: sumlee <sumlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:39:22 by sumlee            #+#    #+#             */
-/*   Updated: 2026/08/16 04:06:32 by sumlee           ###   ########.fr       */
+/*   Updated: 2026/08/16 04:22:12 by sumlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,14 @@ char	*read_line(int fd)
 	if (fd < 0)
 		return (NULL);
 	len = 0;
-	read_bytes = read(fd, &ch, 1);
-	while (read_bytes > 0 && ch != '\n')
+	while ((read_bytes = read(fd, &ch, 1)) > 0 && ch != '\n')
 		len++;
 	if (!len || read_bytes <= 0)
 		return (NULL);
 	line = (char *)malloc(sizeof(char) * (len + 1));
 	if (!line)
 		return (NULL);
-	rewind_offset(fd, len, (read_bytes > 0 && ch == '\n'));
+	rewind_fileoffset(fd, len, (read_bytes > 0 && ch == '\n'));
 	i = 0;
 	while (i < len)
 		read(fd, &line[i++], 1);

@@ -6,7 +6,7 @@
 /*   By: sumlee <sumlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:48:41 by sumlee            #+#    #+#             */
-/*   Updated: 2026/08/16 03:59:07 by sumlee           ###   ########.fr       */
+/*   Updated: 2026/08/16 04:28:42 by sumlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,27 @@ void	init_dp_row(char **grid, int *dp_row, t_map_info *info, int row)
 	}
 }
 
-int	solve_bsq(char **grid, t_map_info *info, t_square *best)
+int	**solve_bsq(char **grid, t_map_info *info, t_square *best)
 {
 	int	**dp;
 	int	i;
 	int	j;
 
 	dp = (int **)malloc(sizeof(int *) * info->rows);
+	if (!dp)
+		return (0);
 	i = 0;
 	while (i < info->rows)
 	{
 		dp[i] = (int *)malloc(sizeof(int) * info->cols);
+		if (!dp[i])
+			return (0);
 		init_dp_row(grid, dp[i], info, i);
 		j = 0;
 		while (i > 0 && j < info->cols)
 		{
 			if (grid[i][j] != info->obstacle)
-				dp[i][j] = min(dp[i - 1][j], dp[i][j - 1],
+				dp[i][j] = min_three(dp[i - 1][j], dp[i][j - 1],
 						dp[i - 1][j - 1]) + 1;
 			if (dp[i][j] > best->size)
 				*best = (t_square){dp[i][j], i, j};

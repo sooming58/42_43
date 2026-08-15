@@ -6,7 +6,7 @@
 /*   By: sumlee <sumlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:47:18 by sumlee            #+#    #+#             */
-/*   Updated: 2026/08/16 04:06:28 by sumlee           ###   ########.fr       */
+/*   Updated: 2026/08/16 04:28:52 by sumlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ void	process_file(char *filename);
 char	*read_line(int fd);
 char	**free_line(char **grid, char *temp, t_map_info *info, int i);
 char	**read_map(int fd, t_map_info *info);
-int		solve_bsq(char **grid, t_map_info *info, t_square *best);
+int		**solve_bsq(char **grid, t_map_info *info, t_square *best);
 
 
-void	process_map(int fd)
+void	process_map(int fd, char **argv, t_map_info *info, t_square *best)
 {
 	t_map_info	info;
 	t_square 	best;
 	char	**grid;
 
-	if (!parse_header(fd, &info))
+	if (!validate_header(argv[0], &info))
 	{
 		write(2, "map error\n", 10);
 		return ;
@@ -64,12 +64,13 @@ void	process_map(int fd)
 	}
 	if (!solve_bsq(grid, &info, &best))
 	{
-		free_map(grid, &info);
+		free_grid(grid, info->rows);
 		write(2, "map error\n", 10);
 		return ;
 	}
-	fill_print(grid, &info, &best);
-	free_map(grid, &info);
+	fill_map(grid, info, best);
+	map_print(grid, info);
+	free_grid(grid, info->rows);
 }
 
 int	validate_line(char *line, t_map_info *info, int current_row)
