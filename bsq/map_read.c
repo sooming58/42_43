@@ -6,15 +6,12 @@
 /*   By: sumlee <sumlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:39:22 by sumlee            #+#    #+#             */
-/*   Updated: 2026/08/16 01:49:06 by sumlee           ###   ########.fr       */
+/*   Updated: 2026/08/16 03:44:44 by sumlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 #include <stdlib.h>
-
-int		ft_strlen(char *str);
-void	rewind_fileoffset(int fd, int len, int has_newline);
 
 char	*read_line(int fd)
 {

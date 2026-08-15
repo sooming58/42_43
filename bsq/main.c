@@ -6,11 +6,12 @@
 /*   By: sumlee <sumlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 18:41:28 by sumlee            #+#    #+#             */
-/*   Updated: 2026/08/16 01:50:15 by sumlee           ###   ########.fr       */
+/*   Updated: 2026/08/16 03:41:15 by sumlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
+#include <unistd.h>
 
 int	ft_strlen(char *str)
 {
@@ -30,7 +31,36 @@ void	rewind_fileoffset(int fd, int len, int has_newline)
 		lseek(fd, -(ssize_t)len, SEEK_CUR);
 }
 
+void	process_file(char *filename)
+{
+	int fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		print_map_error();
+	else
+	{
+		process_map(fd);
+		close(fd);
+	}
+}
+
 int	main(int argc, char **argv)
 {
-	
+	int	i;
+
+	if (argc == 1)
+		process_map(0);
+	else
+	{
+		i = 1;
+		while (argc > 1)
+		{
+			if (i > 1)
+				write(1, "\n", 1);
+			process_file(argv[i]);
+			i++;
+		}
+	}
+	return (0);
 }
