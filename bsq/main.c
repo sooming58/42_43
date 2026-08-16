@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sumlee <sumlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/15 18:41:28 by sumlee            #+#    #+#             */
-/*   Updated: 2026/08/16 04:29:07 by sumlee           ###   ########.fr       */
+/*   Created: 2026/08/16 04:31:13 by chjeon            #+#    #+#             */
+/*   Updated: 2026/08/16 18:57:07 by sumlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,9 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-void	rewind_fileoffset(int fd, int len, int has_newline)
-{
-	if (has_newline)
-		lseek(fd, -(ssize_t)(len + 1), SEEK_CUR);
-	else
-		lseek(fd, -(ssize_t)len, SEEK_CUR);
-}
-
 void	process_file(char *filename)
 {
-	int fd;
+	int	fd;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
@@ -41,11 +33,8 @@ void	process_file(char *filename)
 		write(2, "map error\n", 10);
 		return ;
 	}
-	else
-	{
-		process_map(fd);
-		close(fd);
-	}
+	process_map(fd);
+	close(fd);
 }
 
 int	main(int argc, char **argv)
@@ -57,7 +46,7 @@ int	main(int argc, char **argv)
 	else
 	{
 		i = 1;
-		while (argc > 1)
+		while (argc > i)
 		{
 			if (i > 1)
 				write(1, "\n", 1);
