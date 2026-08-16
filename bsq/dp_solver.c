@@ -6,7 +6,7 @@
 /*   By: sumlee <sumlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:48:41 by sumlee            #+#    #+#             */
-/*   Updated: 2026/08/16 04:28:42 by sumlee           ###   ########.fr       */
+/*   Updated: 2026/08/16 18:37:33 by sumlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,24 +50,22 @@ int	**solve_bsq(char **grid, t_map_info *info, t_square *best)
 	dp = (int **)malloc(sizeof(int *) * info->rows);
 	if (!dp)
 		return (0);
-	i = 0;
-	while (i < info->rows)
+	i = -1;
+	while (++i < info->rows)
 	{
 		dp[i] = (int *)malloc(sizeof(int) * info->cols);
 		if (!dp[i])
 			return (0);
 		init_dp_row(grid, dp[i], info, i);
-		j = 0;
-		while (i > 0 && j < info->cols)
+		j = -1;
+		while (i > 0 && ++j < info->cols)
 		{
-			if (grid[i][j] != info->obstacle)
+			if (i > 0 && j > 0 && grid[i][j] != info->obstacle)
 				dp[i][j] = min_three(dp[i - 1][j], dp[i][j - 1],
 						dp[i - 1][j - 1]) + 1;
 			if (dp[i][j] > best->size)
 				*best = (t_square){dp[i][j], i, j};
-			j++;
 		}
-		i++;
 	}
 	return (dp);
 }
@@ -78,10 +76,10 @@ void	fill_map(char **grid, t_map_info *info, t_square *best)
 	int	j;
 
 	i = best->row - best->size + 1;
-	j = best->col - best->size + 1;
-	while (i < best->row)
+	while (i <= best->row)
 	{
-		while (j < best->col)
+		j = best->col - best->size + 1;
+		while (j <= best->col)
 		{
 			grid[i][j] = info->full;
 			j++;
@@ -96,9 +94,9 @@ void	map_print(char **grid, t_map_info *info)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (i < info->rows)
 	{
+		j = 0;
 		while (j < info->cols)
 		{
 			write(1, &grid[i][j], 1);

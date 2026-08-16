@@ -6,7 +6,7 @@
 /*   By: sumlee <sumlee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/16 03:31:08 by chjeon            #+#    #+#             */
-/*   Updated: 2026/08/16 03:59:15 by sumlee           ###   ########.fr       */
+/*   Updated: 2026/08/16 18:36:29 by sumlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int	validate_header(char *line, t_map_info *info)
 	int	len;
 
 	len = 0;
-	while (line[len] && line[len] != '\n')
+	while (line[len])
 		len++;
-	if (line[len] != '\n' || len < 4)
+	if (len < 4)
 		return (0);
 	info->full = line[len - 1];
 	info->obstacle = line[len - 2];
